@@ -9,9 +9,9 @@
 # $ docker stop test_sshd
 
 
-# ssh 関連
 FROM ubuntu:14.04
 
+# ssh 関連
 RUN apt-get update && apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
 RUN echo 'root:screencast' | chpasswd
@@ -24,7 +24,12 @@ ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
 # cap 関連
+ENV CAPISTRANO_ROOT_DIR "/var/www/app"
+
 RUN apt-get install -y git
+
+COPY config/database.yml "${CAPISTRANO_ROOT_DIR}/shared/config/database.yml"
+
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]

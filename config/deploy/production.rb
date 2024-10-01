@@ -19,3 +19,5 @@ set :branch, "main"
 set :production
 set :deploy_to, "/var/www/app"
 
+append :linked_files, "config/database.yml"
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
