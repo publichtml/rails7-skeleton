@@ -18,6 +18,12 @@ server "localhost",
 set :branch, "main"
 set :production
 set :deploy_to, "/var/www/app"
+# NOTE: capistrano は non-login shell を使うので、
+#       必要な環境変数は capistrano 側で指定する必要がある
+set :default_env, {
+  RAILS_ENV: :production,
+  SECRET_KEY_BASE_DUMMY: 1
+}
 
 append :linked_files, "config/database.yml"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"

@@ -1,32 +1,19 @@
-# https://docs.docker.jp/engine/examples/running_ssh_service.html
-
-# $ docker build -t eg_sshd .
-# $ docker run -d --rm -it -p 5000:22 --name test_sshd eg_sshd
-#
-# $ ssh root@localhost -p 5000
-# (パスワードは screencast)
-#
-# $ docker stop test_sshd
-
-
-FROM ubuntu:14.04
+ARG RUBY_VERSION=3.3.5
+FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
 # ssh 関連
-RUN apt-get update && apt-get install -y openssh-server
+RUN apt-get update && apt-get install -y openssh-server vim
 RUN mkdir /var/run/sshd
+# NOTE: root の password は `screencast`
 RUN echo 'root:screencast' | chpasswd
-RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
 
-# SSH login fix. Otherwise user is kicked off after login
-RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
-
-ENV NOTVISIBLE "in users profile"
-RUN echo "export VISIBLE=now" >> /etc/profile
-
-# cap 関連
+# cap, rails 関連
 ENV CAPISTRANO_ROOT_DIR "/var/www/app"
 
-RUN apt-get install -y git
+WORKDIR $CAPISTRANO_ROOT_DIR
+
+RUN apt-get install --no-install-recommends -y build-essential git sqlite3
 
 COPY config/database.yml "${CAPISTRANO_ROOT_DIR}/shared/config/database.yml"
 
