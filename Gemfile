@@ -60,4 +60,4 @@ gem 'dotenv-rails'
 
 gem "capistrano-rails"
 gem "capistrano3-puma", "~> 5.2"
-gem "rack", "< 3" # Puma 5 is not compatible with Rack 3
+gem "rack", "< 4" # Puma 5 is not compatible with Rack 3
