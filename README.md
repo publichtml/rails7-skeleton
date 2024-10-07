@@ -1,24 +1,21 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+cap deploy できるだけの Rails7 アプリ。
 
-Things you may want to cover:
 
-* Ruby version
+# Usage
 
-* System dependencies
+docker-compose を事前にインストールしておく。
 
-* Configuration
+```
+$ bundle install
 
-* Database creation
+$ docker-compose build
+$ docker-compose up -d
 
-* Database initialization
+$ bundle exec cap production deploy
 
-* How to run the test suite
+$ curl http://localhost:4000  # テキストで "Welcome" とだけ返ってくる
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+$ ssh root@localhost -p 4022  # パスワードは screencast
+```
