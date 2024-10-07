@@ -12,7 +12,7 @@ server "localhost",
     # forward_agent: false,
     # auth_methods: %w(publickey password)
     password: "screencast",
-    port: 5000
+    port: 4022
   }
 
 set :branch, "capistrano3-puma"

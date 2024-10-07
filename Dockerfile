@@ -20,5 +20,5 @@ COPY puma.rb "${CAPISTRANO_ROOT_DIR}/shared/puma.rb"
 COPY config/database.yml "${CAPISTRANO_ROOT_DIR}/shared/config/database.yml"
 
 
-EXPOSE 22
+EXPOSE 22 3000
 CMD ["/sbin/init"]
