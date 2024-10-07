@@ -21,4 +21,4 @@ COPY config/database.yml "${CAPISTRANO_ROOT_DIR}/shared/config/database.yml"
 
 
 EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["/sbin/init"]
