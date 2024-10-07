@@ -15,7 +15,7 @@ server "localhost",
     port: 4022
   }
 
-set :branch, "capistrano3-puma"
+set :branch, (ENV["BRANCH"] || "main")
 set :production
 set :deploy_to, "/var/www/app"
 set :puma_service_unit_name, 'puma'
