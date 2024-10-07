@@ -13,10 +13,15 @@ ENV CAPISTRANO_ROOT_DIR "/var/www/app"
 
 WORKDIR $CAPISTRANO_ROOT_DIR
 
-RUN apt-get install --no-install-recommends -y build-essential git sqlite3
+RUN apt-get install --no-install-recommends -y build-essential git curl sudo sqlite3
 
+COPY .env "${CAPISTRANO_ROOT_DIR}/shared/.env"
+COPY puma.rb "${CAPISTRANO_ROOT_DIR}/shared/puma.rb"
 COPY config/database.yml "${CAPISTRANO_ROOT_DIR}/shared/config/database.yml"
 
+# systemd
+COPY docker-resources/puma.service /etc/systemd/system/puma.service
 
-EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
+
+EXPOSE 22 3000
+CMD ["/sbin/init"]

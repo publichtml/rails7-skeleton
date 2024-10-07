@@ -1,0 +1,28 @@
+# cap の puma:systemd:config で生成されるのと同じもの
+
+[Unit]
+Description=Puma HTTP Server for rails7-samson-sample-client (production)
+After=network.target
+
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/www/app/current
+# Support older bundler versions where file descriptors weren't kept
+# See https://github.com/rubygems/rubygems/issues/3254
+ExecStart=/usr/bin/env bundle exec --keep-file-descriptors puma -C /var/www/app/shared/puma.rb
+ExecReload=/bin/kill -USR1 $MAINPID
+StandardOutput=append:/var/www/app/shared/log/puma_access.log
+StandardError=append:/var/www/app/shared/log/puma_error.log
+
+
+
+
+Restart=always
+RestartSec=1
+
+SyslogIdentifier=puma
+
+[Install]
+WantedBy=multi-user.target
