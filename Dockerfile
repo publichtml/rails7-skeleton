@@ -19,6 +19,9 @@ COPY .env "${CAPISTRANO_ROOT_DIR}/shared/.env"
 COPY puma.rb "${CAPISTRANO_ROOT_DIR}/shared/puma.rb"
 COPY config/database.yml "${CAPISTRANO_ROOT_DIR}/shared/config/database.yml"
 
+# systemd
+COPY docker-resources/puma.service /etc/systemd/system/puma.service
+
 
 EXPOSE 22 3000
 CMD ["/sbin/init"]
