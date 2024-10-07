@@ -13,9 +13,9 @@ stdout_redirect '/var/www/app/shared/log/puma_access.log', '/var/www/app/shared/
 
 threads 0,16
 
+port 3000
 
-
-bind 'unix:///var/www/app/shared/tmp/sockets/puma.sock'
+# bind 'unix:///var/www/app/shared/tmp/sockets/puma.sock'
 
 workers 0
 
