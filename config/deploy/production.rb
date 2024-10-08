@@ -1,9 +1,11 @@
 set :repo_url, "https://github.com/publichtml/rails7-samson-sample-client"
 set :application, "rails7-samson-sample-client"
 
-server "localhost", user: "root", roles: %w{app db web}
+host = ENV["TARGET_HOST"] || "localhost"
 
-server "localhost",
+server host, user: "root", roles: %w{app db web}
+
+server host,
   user: "root",
   roles: %w{web app db},
   ssh_options: {
@@ -12,7 +14,7 @@ server "localhost",
     # forward_agent: false,
     # auth_methods: %w(publickey password)
     password: "screencast",
-    port: 4022
+    port: (ENV["TARGET_HOST_PORT"] || 4022)
   }
 
 set :branch, (ENV["BRANCH"] || "main")
