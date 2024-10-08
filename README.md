@@ -1,7 +1,9 @@
 # README
 
-cap deploy できるだけの Rails7 アプリ。
+[samson-sample](https://github.com/publichtml/samson-sample) とペアで使うために作られた Rails7 アプリ。
 
+トップページに `Welcome` とだけ表示されるもの。
+docker コンテナは cap deploy できるようにセットアップされている。
 
 # Usage
 
